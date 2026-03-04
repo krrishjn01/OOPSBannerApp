@@ -1,38 +1,32 @@
 /**
- * OOPSBannerApp UC3: OOPS Banner Application (Use Case 3)
- * * This class extends the functionality of Use Case 2 by improving the way the "OOPS" 
- * banner is constructed and displayed. It utilizes the String.join() method to 
- * enhance code readability and memory efficiency[cite: 78, 81].
+ * OOPSBannerApp UC4: Render OOPS as Banner using String Array and Loop
+ * * This use case improves upon UC3 by using a String array to store banner lines 
+ * and iterating through them with a for-each loop, eliminating hardcoded print 
+ * statements and improving modularity and reusability. 
  * * @author Developer
- * @version 3.0
+ * @version 4.0
  */
 public class OOPSBannerApp {
 
     // Main method to run the banner display
     public static void main(String[] args) {
-        
-        // Construct each line using String.join() for better efficiency [cite: 117]
-        // Requirement: Use empty string "" or " " as per hints [cite: 23, 26, 38]
-        
-        // Line 1
-        System.out.println(String.join("", " *** ", "  *** ", " **** ", "  **** "));
-        
-        // Line 2
-        System.out.println(String.join("", "** **", " ** **", " ** **", " ** "));
-        
-        // Line 3
-        System.out.println(String.join("", "** **", " ** **", " ** **", "  ** "));
-        
-        // Line 4
-        System.out.println(String.join("", "** **", " ** **", " **** ", "    ** "));
-        
-        // Line 5
-        System.out.println(String.join("", "** **", " ** **", " ** ", "       ** "));
-        
-        // Line 6
-        System.out.println(String.join("", "** **", " ** **", " ** ", "      **"));
-        
-        // Line 7
-        System.out.println(String.join("", " *** ", "  *** ", " ** ", "   **** "));
+
+        // 1. Define a String array with a size equal to the 7 lines of the banner 
+        String[] lines = new String[7];
+
+        // 2. Populate each index of the array using String.join()
+        // Maintaining 7-line format with 9-character width per letter 
+        lines[0] = String.join("", "  *** ", "   *** ", "  **** ", "   **** ");
+        lines[1] = String.join("", " ** ** ", " ** ** ", " ** ** ", " ** ");
+        lines[2] = String.join("", " ** ** ", " ** ** ", " ** ** ", "  ** ");
+        lines[3] = String.join("", " ** ** ", " ** ** ", " **** ", "    ** ");
+        lines[4] = String.join("", " ** ** ", " ** ** ", " ** ", "       ** ");
+        lines[5] = String.join("", " ** ** ", " ** ** ", " ** ", "      ** ");
+        lines[6] = String.join("", "  *** ", "   *** ", "  ** ", "   **** ");
+
+        // 3. Use an enhanced for-each loop to print each line [cite: 181, 186, 213]
+        for (String line : lines) {
+            System.out.println(line); 
+        }
     }
 }
