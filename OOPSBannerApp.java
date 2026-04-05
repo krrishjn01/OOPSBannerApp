@@ -1,73 +1,122 @@
-/**
- * OOPSBannerApp UC6: OOPS Banner Application (Use Case 6)
- * * This use case extends UC5 by implementing a modular approach to generate each
- * letter's pattern through dedicated methods. This enhances code reusability and
- * maintainability by separating pattern generation logic from the main display logic.
- * * @author Developer
- * @version 6.0
- */
 public class OOPSBannerApp {
 
     /**
-     * Method to generate the pattern for the letter 'O'
-     * Returns a String array representing the 7-line ASCII pattern.
+     * Inner static class to store character and its pattern
      */
-    public static String[] getOPattern() {
-        return new String[] {
-            "  ***  ",
-            " ** ** ",
-            " ** ** ",
-            " ** ** ",
-            " ** ** ",
-            " ** ** ",
-            "  ***  "
+    static class CharacterPatternMap {
+        private char character;
+        private String[] pattern;
+
+        // Constructor
+        public CharacterPatternMap(char character, String[] pattern) {
+            this.character = character;
+            this.pattern = pattern;
+        }
+
+        // Getter for character
+        public char getCharacter() {
+            return character;
+        }
+
+        // Getter for pattern
+        public String[] getPattern() {
+            return pattern;
+        }
+    }
+
+    /**
+     * Create and initialize character patterns for O, P, S and space
+     */
+    public static CharacterPatternMap[] createCharacterPatternMaps() {
+
+        String[] O = {
+                " *** ",
+                "*   *",
+                "*   *",
+                "*   *",
+                "*   *",
+                "*   *",
+                " *** "
+        };
+
+        String[] P = {
+                "**** ",
+                "*   *",
+                "*   *",
+                "**** ",
+                "*    ",
+                "*    ",
+                "*    "
+        };
+
+        String[] S = {
+                " ****",
+                "*    ",
+                "*    ",
+                " *** ",
+                "    *",
+                "    *",
+                "**** "
+        };
+
+        String[] space = {
+                "     ",
+                "     ",
+                "     ",
+                "     ",
+                "     ",
+                "     ",
+                "     "
+        };
+
+        return new CharacterPatternMap[]{
+                new CharacterPatternMap('O', O),
+                new CharacterPatternMap('P', P),
+                new CharacterPatternMap('S', S),
+                new CharacterPatternMap(' ', space)
         };
     }
 
     /**
-     * Method to generate the pattern for the letter 'P'
+     * Get pattern for a given character
      */
-    public static String[] getPPattern() {
-        return new String[] {
-            " ****  ",
-            " ** ** ",
-            " ** ** ",
-            " ****  ",
-            " **    ",
-            " **    ",
-            " **    "
-        };
+    public static String[] getCharacterPattern(char ch, CharacterPatternMap[] maps) {
+        for (CharacterPatternMap map : maps) {
+            if (map.getCharacter() == ch) {
+                return map.getPattern();
+            }
+        }
+        return getCharacterPattern(' ', maps); // fallback
     }
 
     /**
-     * Method to generate the pattern for the letter 'S'
+     * Print banner message
      */
-    public static String[] getSPattern() {
-        return new String[] {
-            "  ****  ",
-            "**      ",
-            " **     ",
-            "   **   ",
-            "     ** ",
-            "    **  ",
-            " ****   "
-        };
+    public static void printMessage(String message, CharacterPatternMap[] maps) {
+
+        message = message.toUpperCase();
+
+        for (int i = 0; i < 7; i++) { // 7 lines per character
+            StringBuilder line = new StringBuilder();
+
+            for (char ch : message.toCharArray()) {
+                String[] pattern = getCharacterPattern(ch, maps);
+                line.append(pattern[i]).append("  "); // spacing between letters
+            }
+
+            System.out.println(line);
+        }
     }
 
     /**
-     * Main method to run the banner display
+     * Main method
      */
     public static void main(String[] args) {
-        // Step 1: Declare String Arrays and populate them by calling helper methods [cite: 573]
-        String[] oPattern = getOPattern(); // Reused for both 'O's 
-        String[] pPattern = getPPattern();
-        String[] sPattern = getSPattern();
 
-        // Step 2: Use a loop to assemble and print each line of the "OOPS" banner
-        // Since all patterns are 7 lines high, we iterate from 0 to 6
-        for (int i = 0; i < oPattern.length; i++) {
-            // Combine patterns line by line with spacing for visual effect
-            System.out.println(" " + oPattern[i] + " " + oPattern[i] + "  " + pPattern[i] + " " + sPattern[i]);
-        }
+        CharacterPatternMap[] maps = createCharacterPatternMaps();
+
+        String message = "OOPS";
+
+        printMessage(message, maps);
     }
 }
